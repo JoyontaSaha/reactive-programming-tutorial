@@ -295,4 +295,61 @@ class FluxAndMonoServicesTest {
                 .verifyComplete();
     }
 
+    @Test
+    @Order(26)
+    @DisplayName("FruitsFluxDoOn() Method Testing")
+    void testFruitsFluxDoOn() {
+        var fruitsFluxDoOn = fluxAndMonoServices.fruitsFluxDoOn(5);
+
+        StepVerifier.create(fruitsFluxDoOn)
+                .expectNextCount(2)
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(27)
+    @DisplayName("FruitsFluxOnErrorReturn() Method Testing")
+    void testFruitsFluxOnErrorReturn() {
+        var fruitsFluxOnErrorReturn = fluxAndMonoServices.fruitsFluxOnErrorReturn();
+
+        StepVerifier.create(fruitsFluxOnErrorReturn)
+                .expectNext("Mango", "Orange","Banana","Apple")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(28)
+    @DisplayName("FruitsFluxOnErrorContinue() Method Testing")
+    void testFruitsFluxOnErrorContinue() {
+        var fruitsFluxOnErrorContinue = fluxAndMonoServices.fruitsFluxOnErrorContinue();
+
+        StepVerifier.create(fruitsFluxOnErrorContinue)
+                .expectNext("MANGO","BANANA")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(29)
+    @DisplayName("FruitsFluxOnErrorMap() Method Testing")
+    void testFruitsFluxOnErrorMap() {
+        var fruitsFluxOnErrorMap = fluxAndMonoServices.fruitsFluxOnErrorMap();
+
+        StepVerifier.create(fruitsFluxOnErrorMap)
+                .expectNext("MANGO")
+                .expectError(IllegalArgumentException.class)
+                .verify();
+    }
+
+    @Test
+    @Order(30)
+    @DisplayName("FruitsFluxDoOnError() Method Testing")
+    void testFruitsFluxDoOnError() {
+        var fruitsFluxDoOnError = fluxAndMonoServices.fruitsFluxDoOnError();
+
+        StepVerifier.create(fruitsFluxDoOnError)
+                .expectNext("MANGO")
+                .expectError(RuntimeException.class)
+                .verify();
+    }
+
 }

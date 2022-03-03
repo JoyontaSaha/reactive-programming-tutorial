@@ -223,4 +223,61 @@ public class FluxAndMonoServices {
         return fruit.zipWith(veggie, (first, second) -> first + second).log();
     }
 
+    public Flux<String> fruitsFluxDoOn(int limit) {
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .filter(s -> s.length() > limit)
+                .doOnSubscribe(subscription -> {
+                    System.out.println("subscription :: " + subscription.toString());
+                })
+                .doOnNext(s -> {
+                    System.out.println("next :: " + s);
+                })
+                .doOnComplete(() -> System.out.println("Completed"))
+                .log();
+    }
+
+    public Flux<String> fruitsFluxOnErrorReturn() {
+        return Flux.just("Mango", "Orange", "Banana")
+                .concatWith(Flux.error(new RuntimeException("Exception Occurred")))
+                .onErrorReturn("Apple").log();
+    }
+
+    public Flux<String> fruitsFluxOnErrorContinue() {
+        return Flux.just("Mango", "Orange", "Banana")
+                .map(s -> {
+                    if(s.equals("Orange"))
+                        throw new RuntimeException("Exception Occurred");
+                    return s.toUpperCase();
+                })
+                .onErrorContinue((e,f) -> {
+                    System.out.println("e :: " + e);
+                    System.out.println("f :: " + f);
+                }).log();
+    }
+
+    public Flux<String> fruitsFluxOnErrorMap() {
+        return Flux.just("Mango", "Orange", "Banana")
+                .map(s -> {
+                    if(s.equals("Orange"))
+                        throw new RuntimeException("Runtime Exception Occurred");
+                    return s.toUpperCase();
+                })
+                .onErrorMap(throwable -> {
+                    System.out.println("Throwable :: " + throwable);
+                    return new IllegalArgumentException("Illegal Argument Exception Occurred");
+                }).log();
+    }
+
+    public Flux<String> fruitsFluxDoOnError() {
+        return Flux.just("Mango", "Orange", "Banana")
+                .map(s -> {
+                    if(s.equals("Orange"))
+                        throw new RuntimeException("Runtime Exception Occurred");
+                    return s.toUpperCase();
+                })
+                .doOnError(throwable -> {
+                    System.out.println("Throwable :: " + throwable);
+                }).log();
+    }
+
 }
