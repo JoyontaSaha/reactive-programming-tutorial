@@ -185,4 +185,42 @@ public class FluxAndMonoServices {
         return Flux.mergeSequential(fruits, veggies).log();
     }
 
+    public Flux<String> fruitsVeggiesFluxZip() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana");
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot");
+
+        return Flux.zip(fruits, veggies, (first, second) -> first + second).log();
+    }
+
+    public Flux<String> fruitsVeggiesFluxZipTuple() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana");
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot");
+        Flux<String> colors = Flux.just("Yellow", "Green", "Red");
+
+        return Flux.zip(fruits, veggies, colors)
+                .map(Object -> Object.getT1() + Object.getT2() + Object.getT3()).log();
+    }
+
+    public Flux<String> fruitsVeggiesFluxZipWith() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana");
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot");
+
+        return fruits.zipWith(veggies, (first, second) -> first + second).log();
+    }
+
+
+    public Mono<String> fruitsVeggiesMonoZip() {
+        Mono<String> fruit = Mono.just("Mango");
+        Mono<String> veggie = Mono.just("Tomato");
+
+        return Mono.zip(fruit, veggie, (first, second) -> first + second).log();
+    }
+
+    public Mono<String> fruitsVeggiesMonoZipWith() {
+        Mono<String> fruit = Mono.just("Mango");
+        Mono<String> veggie = Mono.just("Tomato");
+
+        return fruit.zipWith(veggie, (first, second) -> first + second).log();
+    }
+
 }

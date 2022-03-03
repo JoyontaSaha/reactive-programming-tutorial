@@ -239,4 +239,60 @@ class FluxAndMonoServicesTest {
                 .expectNext("Mango", "Orange", "Banana", "Tomato", "Cucumber", "Carrot")
                 .verifyComplete();
     }
+
+    @Test
+    @Order(21)
+    @DisplayName("FruitsVeggiesFluxZip() Method Testing")
+    void testFruitsVeggiesFluxZip() {
+        var fruitsVeggiesFluxZip = fluxAndMonoServices.fruitsVeggiesFluxZip();
+
+        StepVerifier.create(fruitsVeggiesFluxZip)
+                .expectNext("MangoTomato", "OrangeCucumber", "BananaCarrot")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(22)
+    @DisplayName("FruitsVeggiesFluxZipTuple() Method Testing")
+    void testFruitsVeggiesFluxZipTuple() {
+        var fruitsVeggiesFluxZipTuple = fluxAndMonoServices.fruitsVeggiesFluxZipTuple();
+
+        StepVerifier.create(fruitsVeggiesFluxZipTuple)
+                .expectNext("MangoTomatoYellow", "OrangeCucumberGreen", "BananaCarrotRed")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(23)
+    @DisplayName("FruitsVeggiesFluxZipWith() Method Testing")
+    void testFruitsVeggiesFluxZipWith() {
+        var fruitsVeggiesFluxZipWith = fluxAndMonoServices.fruitsVeggiesFluxZipWith();
+
+        StepVerifier.create(fruitsVeggiesFluxZipWith)
+                .expectNext("MangoTomato", "OrangeCucumber", "BananaCarrot")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(24)
+    @DisplayName("FruitVeggieMonoZip() Method Testing")
+    void testFruitVeggieMonoZip() {
+        var fruitVeggieMonoZip = fluxAndMonoServices.fruitsVeggiesMonoZip();
+
+        StepVerifier.create(fruitVeggieMonoZip)
+                .expectNext("MangoTomato")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(25)
+    @DisplayName("FruitVeggieMonoZipWith() Method Testing")
+    void testFruitVeggieMonoZipWith() {
+        var fruitVeggieMonoZipWith = fluxAndMonoServices.fruitsVeggiesMonoZipWith();
+
+        StepVerifier.create(fruitVeggieMonoZipWith)
+                .expectNext("MangoTomato")
+                .verifyComplete();
+    }
+
 }
