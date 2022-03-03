@@ -6,6 +6,7 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 public class FluxAndMonoServices {
     public static void main(String[] args) {
@@ -96,4 +97,44 @@ public class FluxAndMonoServices {
                 .flatMapMany(s -> Flux.just(s.split("")))
                 .log();
     }
+
+    public Flux<String> fruitsFluxTransformFilter(int limit) {
+        Function<Flux<String>, Flux<String>> filterData =
+                data -> data.filter(s -> s.length() > limit);
+
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .transform(filterData)
+                .log();
+    }
+    public Flux<String> fruitsFluxTransformFilterMap(int limit) {
+        Function<Flux<String>, Flux<String>> filterData =
+                data -> data.filter(s -> s.length() > limit)
+                        .map(String :: toUpperCase);
+
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .transform(filterData)
+                .log();
+    }
+
+    public Flux<String> fruitsFluxDefaultIfEmpty(int limit) {
+        Function<Flux<String>, Flux<String>> filterData =
+                data -> data.filter(s -> s.length() > limit);
+
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .transform(filterData)
+                .defaultIfEmpty("Jack Fruit")
+                .log();
+    }
+
+    public Flux<String> fruitsFluxSwitchIfEmpty(int limit) {
+        Function<Flux<String>, Flux<String>> filterData =
+                data -> data.filter(s -> s.length() > limit);
+
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .transform(filterData)
+                .switchIfEmpty(Flux.just("Jack Fruit", "Guava", "Pineapple"))
+                .transform(filterData)
+                .log();
+    }
+
 }

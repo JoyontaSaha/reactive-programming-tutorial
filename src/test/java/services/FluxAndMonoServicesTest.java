@@ -129,4 +129,48 @@ class FluxAndMonoServicesTest {
                 .expectNextCount(5)
                 .verifyComplete();
     }
+
+    @Test
+    @Order(12)
+    @DisplayName("FruitsFluxTransformFilter() Method Testing")
+    void testFruitsFluxTransformFilter() {
+        var fruitsFluxTransformFilter = fluxAndMonoServices.fruitsFluxTransformFilter(5);
+
+        StepVerifier.create(fruitsFluxTransformFilter)
+                .expectNext("Orange", "Banana")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("FruitsFluxTransformFilterMap() Method Testing")
+    void testFruitsFluxTransformFilterMap() {
+        var fruitsFluxTransformFilterMap = fluxAndMonoServices.fruitsFluxTransformFilterMap(5);
+
+        StepVerifier.create(fruitsFluxTransformFilterMap)
+                .expectNext("ORANGE", "BANANA")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("FruitsFluxDefaultIfEmpty() Method Testing")
+    void testFruitsFluxDefaultIfEmpty() {
+        var fruitsFluxDefaultIfEmpty = fluxAndMonoServices.fruitsFluxDefaultIfEmpty(8);
+
+        StepVerifier.create(fruitsFluxDefaultIfEmpty)
+                .expectNext("Jack Fruit")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(14)
+    @DisplayName("FruitsFluxSwitchIfEmpty() Method Testing")
+    void testFruitsFluxSwitchIfEmpty() {
+        var fruitsFluxSwitchIfEmpty = fluxAndMonoServices.fruitsFluxSwitchIfEmpty(8);
+
+        StepVerifier.create(fruitsFluxSwitchIfEmpty)
+                .expectNext("Jack Fruit", "Pineapple")
+                .verifyComplete();
+    }
 }
