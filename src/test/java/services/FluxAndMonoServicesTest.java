@@ -24,11 +24,11 @@ class FluxAndMonoServicesTest {
     @Order(2)
     @DisplayName("FruitMono() Method Testing")
     void testFruitMono() {
-         var fruitMono = fluxAndMonoServices.fruitMono();
+        var fruitMono = fluxAndMonoServices.fruitMono();
 
-         StepVerifier.create(fruitMono)
-                 .expectNext("Apple")
-                 .verifyComplete();
+        StepVerifier.create(fruitMono)
+                .expectNext("Apple")
+                .verifyComplete();
     }
 
     @Test
@@ -105,6 +105,28 @@ class FluxAndMonoServicesTest {
 
         StepVerifier.create(fruitMonoFlatMap)
                 .expectNextCount(1)
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(10)
+    @DisplayName("FruitsFluxConcateMap() Method Testing")
+    void testFruitsFluxConcateMap() {
+        var fruitsFluxConcateMap = fluxAndMonoServices.fruitsFluxConcateMap();
+
+        StepVerifier.create(fruitsFluxConcateMap)
+                .expectNextCount(("Mango" + "Orange" + "Banana").length())
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("FruitMonoFlatMapMany() Method Testing")
+    void testFruitMonoFlatMapMany() {
+        var fruitMonoFlatMapMany = fluxAndMonoServices.fruitMonoFlatMapMany();
+
+        StepVerifier.create(fruitMonoFlatMapMany)
+                .expectNextCount(5)
                 .verifyComplete();
     }
 }

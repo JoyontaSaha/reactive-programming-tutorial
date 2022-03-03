@@ -81,4 +81,19 @@ public class FluxAndMonoServices {
                 .flatMap(s -> Mono.just(List.of(s.split(""))))
                 .log();
     }
+
+    public Flux<String> fruitsFluxConcateMap() {
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .concatMap(s -> Flux.just(s.split(""))
+                        .delayElements(Duration.ofMillis(
+                                new Random().nextInt(1000)
+                        )))
+                .log();
+    }
+
+    public Flux<String> fruitMonoFlatMapMany() {
+        return Mono.just("Apple")
+                .flatMapMany(s -> Flux.just(s.split("")))
+                .log();
+    }
 }
