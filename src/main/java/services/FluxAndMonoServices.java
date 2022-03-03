@@ -137,4 +137,52 @@ public class FluxAndMonoServices {
                 .log();
     }
 
+    public Flux<String> fruitsVeggiesFluxConcat() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana");
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot");
+
+        return Flux.concat(fruits, veggies).log();
+    }
+
+    public Flux<String> fruitsVeggiesFluxConcatWith() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana");
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot");
+
+        return fruits.concatWith(veggies).log();
+    }
+
+    public Flux<String> fruitVeggieMonoConcatWith() {
+        Mono<String> fruit = Mono.just("Mango");
+        Mono<String> veggie = Mono.just("Tomato");
+
+        return fruit.concatWith(veggie).log();
+    }
+
+    public Flux<String> fruitsVeggiesFluxMerge() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana")
+                .delayElements(Duration.ofMillis(45));
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot")
+                .delayElements(Duration.ofMillis(55));
+
+        return Flux.merge(fruits, veggies).log();
+    }
+
+    public Flux<String> fruitsVeggiesFluxMergeWith() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana")
+                .delayElements(Duration.ofMillis(45));
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot")
+                .delayElements(Duration.ofMillis(55));
+
+        return fruits.mergeWith(veggies).log();
+    }
+
+    public Flux<String> fruitsVeggiesFluxMergeSequential() {
+        Flux<String> fruits = Flux.just("Mango", "Orange", "Banana")
+                .delayElements(Duration.ofMillis(45));
+        Flux<String> veggies = Flux.just("Tomato", "Cucumber", "Carrot")
+                .delayElements(Duration.ofMillis(55));
+
+        return Flux.mergeSequential(fruits, veggies).log();
+    }
+
 }

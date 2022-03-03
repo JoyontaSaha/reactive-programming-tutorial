@@ -173,4 +173,70 @@ class FluxAndMonoServicesTest {
                 .expectNext("Jack Fruit", "Pineapple")
                 .verifyComplete();
     }
+
+    @Test
+    @Order(15)
+    @DisplayName("FruitsVeggiesFluxConcat() Method Testing")
+    void testFruitsVeggiesFluxConcat() {
+        var fruitsVeggiesFluxConcat = fluxAndMonoServices.fruitsVeggiesFluxConcat();
+
+        StepVerifier.create(fruitsVeggiesFluxConcat)
+                .expectNext("Mango", "Orange", "Banana", "Tomato", "Cucumber", "Carrot")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(16)
+    @DisplayName("FruitsVeggiesFluxConcatWith() Method Testing")
+    void testFruitsVeggiesFluxConcatWith() {
+        var fruitsVeggiesFluxConcatWith = fluxAndMonoServices.fruitsVeggiesFluxConcatWith();
+
+        StepVerifier.create(fruitsVeggiesFluxConcatWith)
+                .expectNext("Mango", "Orange", "Banana", "Tomato", "Cucumber", "Carrot")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(17)
+    @DisplayName("FruitVeggieMonoConcatWith() Method Testing")
+    void testFruitVeggieMonoConcatWith() {
+        var fruitVeggieMonoConcatWith = fluxAndMonoServices.fruitVeggieMonoConcatWith();
+
+        StepVerifier.create(fruitVeggieMonoConcatWith)
+                .expectNext("Mango","Tomato")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(18)
+    @DisplayName("FruitsVeggiesFluxMerge() Method Testing")
+    void testFruitsVeggiesFluxMerge() {
+        var fruitsVeggiesFluxMerge = fluxAndMonoServices.fruitsVeggiesFluxMerge();
+
+        StepVerifier.create(fruitsVeggiesFluxMerge)
+                .expectNext("Mango", "Tomato","Orange","Cucumber", "Banana","Carrot")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(19)
+    @DisplayName("FruitsVeggiesFluxMergeWith() Method Testing")
+    void testFruitsVeggiesFluxMergeWith() {
+        var fruitsVeggiesFluxMergeWith = fluxAndMonoServices.fruitsVeggiesFluxMergeWith();
+
+        StepVerifier.create(fruitsVeggiesFluxMergeWith)
+                .expectNext("Mango", "Tomato","Orange","Cucumber", "Banana","Carrot")
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(20)
+    @DisplayName("FruitsVeggiesFluxMergeSequential() Method Testing")
+    void testFruitsVeggiesFluxMergeSequential() {
+        var fruitsVeggiesFluxMergeSequential = fluxAndMonoServices.fruitsVeggiesFluxMergeSequential();
+
+        StepVerifier.create(fruitsVeggiesFluxMergeSequential)
+                .expectNext("Mango", "Orange", "Banana", "Tomato", "Cucumber", "Carrot")
+                .verifyComplete();
+    }
 }
