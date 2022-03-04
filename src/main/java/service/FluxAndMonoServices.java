@@ -257,11 +257,13 @@ public class FluxAndMonoServices {
 
     public Flux<String> fruitsFluxOnErrorMap() {
         return Flux.just("Mango", "Orange", "Banana")
+                .checkpoint("Error CheckPoint 1")
                 .map(s -> {
                     if(s.equals("Orange"))
                         throw new RuntimeException("Runtime Exception Occurred");
                     return s.toUpperCase();
                 })
+                .checkpoint("Error CheckPoint 2")
                 .onErrorMap(throwable -> {
                     System.out.println("Throwable :: " + throwable);
                     return new IllegalArgumentException("Illegal Argument Exception Occurred");

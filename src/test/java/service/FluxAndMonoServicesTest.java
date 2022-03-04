@@ -3,7 +3,9 @@ package service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Hooks;
 import reactor.test.StepVerifier;
+import reactor.tools.agent.ReactorDebugAgent;
 
 class FluxAndMonoServicesTest {
 
@@ -332,6 +334,10 @@ class FluxAndMonoServicesTest {
     @Order(29)
     @DisplayName("FruitsFluxOnErrorMap() Method Testing")
     void testFruitsFluxOnErrorMap() {
+        //Hooks.onOperatorDebug();
+        ReactorDebugAgent.init();
+        ReactorDebugAgent.processExistingClasses();
+
         var fruitsFluxOnErrorMap = fluxAndMonoServices.fruitsFluxOnErrorMap();
 
         StepVerifier.create(fruitsFluxOnErrorMap)
