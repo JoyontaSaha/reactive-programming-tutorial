@@ -1,4 +1,4 @@
-package services;
+package service;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

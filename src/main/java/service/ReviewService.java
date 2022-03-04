@@ -1,4 +1,4 @@
-package services;
+package service;
 
 import domain.Review;
 import reactor.core.publisher.Flux;

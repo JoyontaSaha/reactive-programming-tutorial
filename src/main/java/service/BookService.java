@@ -1,7 +1,8 @@
-package services;
+package service;
 
 import domain.Book;
 import domain.Review;
+import exception.BookException;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,6 +29,10 @@ public class BookService {
                             reviewService.getReviewsByBookId(bookInfo.getBookId()).collectList();
                     return reviews
                             .map(review -> new Book(bookInfo, review));
+                })
+                .onErrorMap(throwable -> {
+                    log.error("Exception is {}", throwable);
+                    return new BookException("Exception occurred while fetching Books");
                 })
                 .log();
     }

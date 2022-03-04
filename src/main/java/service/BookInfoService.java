@@ -1,4 +1,4 @@
-package services;
+package service;
 
 import domain.BookInfo;
 import reactor.core.publisher.Flux;
